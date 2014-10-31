@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<taglib
+	xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+		http://java.sun.com/xml/ns/j2ee
+		http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+	version="2.0">
+	<description>
+		Taglib for outputting GDS Anti-CSRF tokens to JSPs
+	</description>
+	<display-name>GDS Anti-CSRF Solution</display-name>
+	<tlib-version>0.1</tlib-version>
+	<short-name>anticsrf</short-name>
+
+	<uri>http://www.gdssecurity.com</uri>
+
+	<tag>
+		<description>
+			Adds CSRF Token to POST form as hidden variable
+		</description>
+		<display-name>Add CSRF Token to Form</display-name>
+		<name>forForm</name>
+		<tag-class>com.gdssecurity.anticsrf.tags.CSRFTokenFormTag</tag-class>
+		<body-content>JSP</body-content>
+	</tag>
+	
+	<tag>
+		<description>
+			Adds CSRF Token variable for appending to a Query String
+		</description>
+		<display-name>Add CSRF Token to URL</display-name>
+		<name>forRequest</name>
+		<tag-class>com.gdssecurity.anticsrf.tags.CSRFTokenUrlTag</tag-class>
+		<body-content>JSP</body-content>
+	</tag>
+	
+	<tag>
+		<description>
+			Adds Url Specific CSRF Token to POST form as hidden variable
+		</description>
+		<display-name>Add CSRF Token to Form</display-name>
+		<name>forFormUrlSpecific</name>
+		<tag-class>com.gdssecurity.anticsrf.tags.CSRFTokenUrlSpecificFormTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>url</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+	</tag>
+
+	<tag>
+		<description>
+			Adds CSRF Token variable for appending to a Query String
+		</description>
+		<display-name>Add CSRF Token to URL</display-name>
+		<name>forRequestUrlSpecific</name>
+		<tag-class>com.gdssecurity.anticsrf.tags.CSRFTokenUrlSpecificUrlTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>url</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+			<type>java.lang.String</type>
+		</attribute>
+	</tag>
+	
+	<tag>
+		<description>
+			Adds CSRF token without the CSRF token parameter name  
+		</description>
+		<display-name>Adds CSRF token to the page</display-name>
+		<name>csrfToken</name>
+		<tag-class>com.gdssecurity.anticsrf.tags.CSRFToken</tag-class>
+		<body-content>JSP</body-content>
+	</tag>
+
+	<tag>
+		<description>
+			Adds CSRF token parameter name without the CSRF token  
+		</description>
+		<display-name>Adds CSRF token parameter name to the page</display-name>
+		<name>csrfToken</name>
+		<tag-class>com.gdssecurity.anticsrf.tags.CSRFTokenParameterName</tag-class>
+		<body-content>JSP</body-content>
+	</tag>
+
+</taglib>

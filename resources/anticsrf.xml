@@ -1,0 +1,40 @@
+<anticsrf>
+	<mode>session</mode>
+	<token_attribute>anticsrf-tokenattr</token_attribute>
+	<token_parametername>tok</token_parametername>
+<!--<logging_configfile>/opt/javalogging.properties</logging_configfile>-->
+	<monitormode enabled="no"></monitormode>
+	
+	<error mode="status_code">403</error>
+<!--<error mode="redirect">/ErrorServlet</error> -->
+<!--<error mode="forward">/ErrorServlet</error> -->
+	
+	<exempt_urls>
+		<url>/</url>
+		<url>/HomeServlet</url>
+		<url>/ErrorServlet</url>
+	</exempt_urls>
+	
+	<hmac_settings>
+		<seed_attribute_name>userseed</seed_attribute_name>
+		<keyfile>/opt/keyczar_anticsrf_signkey</keyfile>
+		<sitewide_timeout>5</sitewide_timeout>
+		
+		<urlspecific>
+			<url timeout="1">/hmac/filter/URLSpecificServlet</url>
+			<url timeout="1">/hmac/custom/CustomURLSpecificServlet</url>
+		</urlspecific>
+	</hmac_settings>
+	
+	<session_settings>
+		<urlspecific>
+			<url>/hmac/custom/CustomURLSpecificServlet</url>
+			<url>/hmac/filter/URLSpecificServlet</url>
+		</urlspecific>
+		
+		<onetimeuse>
+			<url>/hmac/custom/CustomOneTimeUseServlet</url>
+			<url>/hmac/filter/OneTimeUseServlet</url>
+		</onetimeuse>	
+	</session_settings>
+</anticsrf>

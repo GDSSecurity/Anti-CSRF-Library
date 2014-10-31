@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+
+<project basedir="." default="default" name="AntiCSRF">
+  
+  <property environment="env"/>
+  <property name="PMD_PATH" value="${env.PMD_PATH}"/>
+  <property name="TOMCAT_HOME" value="${env.TOMCAT_HOME}"/>
+
+  <path id="pmdClassPath">
+    <pathelement location="${build}"/>
+    <fileset dir="${PMD_PATH}">
+      <include name="*.jar"/>
+    </fileset>
+  </path>
+
+  <path id="tomcat-classpath">
+    <fileset dir="${TOMCAT_HOME}/bin" includes="*.jar" />
+    <fileset dir="${TOMCAT_HOME}/lib" includes="*.jar" />
+    <fileset dir="lib" includes="*.jar" />
+  </path>
+  
+  <target name="default">
+    <antcall target="compile"/>
+    <antcall target="jar"/>
+  </target>
+
+  <target name="compile">
+    <mkdir dir="build/classes"/>
+    <javac srcdir="src" destdir="build/classes" classpathref="tomcat-classpath"/>
+  </target>
+  
+  <target name="jar">
+    <jar destfile="anticsrf.jar" excludes="*.svn*">
+      <manifest>
+        <attribute name="Class-Path" value="." />
+      </manifest>
+      <fileset dir="bin"/>
+    </jar>
+  </target>
+
+  <target name="pmd">
+    <record name="PMD.GDS.scan.log" loglevel="verbose" append="false"/>
+    <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="pmdClassPath"/>
+    <pmd shortFilenames="true" rulesetfiles="pmd.xml">
+      <formatter type="html" toFile="pmd_gds_report.html" toConsole="true"/>
+      <fileset dir="src">
+        <include name="**/*.java"/>
+      </fileset>
+    </pmd>
+  </target>
+
+  <target name="runPMD" description="Runs PMD with the GDS Secure Coding Ruleset">
+    <record name="PMD.GDS.scan.log" loglevel="verbose" append="false"/>
+    <taskdef name="runPMD" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="pmdClassPath"/>
+    <pmd rulesetfiles="rulesets/GDS/SecureCodingRuleset.xml" shortFilenames="false">
+      <formatter type="html" toFile="pmd_gds_report.html" toConsole="true" linkPrefix="http://pmd.sourceforge.net/xref/"/>
+      <fileset dir="/essex_dev/essex-workspace/Essex/src/">
+        <include name="**/*.java" />
+      </fileset>
+      <fileset dir="/essex_dev/essex-workspace/Essex/WebContent/WEB-INF/">
+        <include name="**/*.java" />
+      </fileset>
+    </pmd>	
+  </target>
+</project>

@@ -1,0 +1,25 @@
+<anticsrf>	
+	<mode>hmac</mode>
+    <hmac_settings>
+        <keyfile>/opt/keyczar_signkey</keyfile>
+        <sitewide_timeout>5</sitewide_timeout>
+        <seed_attribute_name>userseed</seed_attribute_name>
+
+        <urlspecific>
+            <url timeout="300">/filter/URLSpecificServlet</url>
+            <url timeout="300">/custom/CustomURLSpecificServlet</url>
+        </urlspecific>
+    </hmac_settings>
+    
+    <session_settings>
+        <urlspecific>
+            <url>/filter/URLSpecificServlet</url>
+            <url>/custom/CustomURLSpecificServlet</url>
+        </urlspecific>
+        <onetimeuse>
+            <url>/filter/OneTimeUseServlet</url>
+            <url>/custom/CustomOneTimeUseServlet</url>
+        </onetimeuse>   
+    </session_settings>
+    
+</anticsrf>
