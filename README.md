@@ -29,7 +29,7 @@ The CSRF token should be tied to the authenticated user’s identity.
 **6.	CSRF Token Protection Scope Should Support Form Specific Protection**<BR>
 The scope of protection can be configured so that a non-expired token is tied to a specific form. 
 
-Note: Currently, the librarysupports site wide and URL specific tokens.  Form specific tokens is on the roadmap for a future version. 
+Note: Currently, the library supports site wide and URL specific tokens.  Form specific tokens is on the roadmap for a future version. 
 
 **7.	Simple Integration with Existing Web Application Technology Stack**<BR> 
 The solution should adhere to the following principles to ensure it is as plug-n-play as possible: 
