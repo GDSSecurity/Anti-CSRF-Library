@@ -41,7 +41,7 @@ The solution should adhere to the following principles to ensure it is as plug-n
 <li>Aim to limit code modifications to source code of the integrating application</li>
 </ul>
 
-Refer to the <a href="https://github.com/GDSSecurity/SS_OSS_Anti-CSRF_Solution/wiki">Wiki</a> for complete documentation and setup instructions.
+Refer to the <a href="https://github.com/GDSSecurity/Anti-CSRF-Library/wiki">Wiki</a> for complete documentation and setup instructions.
 
 The GDS Anti-CSRF Library is provided under GNU GPL v3.0 (http://www.gnu.org/licenses/gpl.html) or any later version<BR>
 Copyright (c) 2014 Gotham Digital Science, LLC -- All Rights Reserved
