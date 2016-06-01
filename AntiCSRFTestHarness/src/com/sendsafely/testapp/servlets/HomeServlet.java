@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gdssecurity.anticsrf.utils.Encoder;
+import org.owasp.encoder.*;
 
 /**
  * Servlet implementation class HomeServlet
@@ -36,7 +36,7 @@ public class HomeServlet extends HttpServlet {
     	LOG.info("Running HomeServlet doGet");
 		if(request.getParameter("user") != null)
 		{
-			request.setAttribute("user", Encoder.HtmlAttributeEncode(Encoder.UrlEncode((request.getParameter("user")))));
+			request.setAttribute("user", Encode.forHtmlAttribute(Encode.forUriComponent((request.getParameter("user")))));
 		}
 		request.getRequestDispatcher("/Home.jsp").forward(request, response);
 	}

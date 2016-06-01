@@ -11,7 +11,7 @@ import com.gdssecurity.anticsrf.exceptions.CSRFTokenGenerationException;
 import com.gdssecurity.anticsrf.exceptions.CSRFTokenVerificationException;
 import com.gdssecurity.anticsrf.utils.ConfigUtil;
 import com.gdssecurity.anticsrf.utils.Constants;
-import com.gdssecurity.anticsrf.utils.Encoder;
+import com.gdssecurity.anticsrf.utils.StringUtil;
 import com.gdssecurity.anticsrf.utils.KeyczarWrapper;
 
 public class HMACCSRFProtection implements CSRFProtection {
@@ -87,7 +87,7 @@ public class HMACCSRFProtection implements CSRFProtection {
 			if( submittedCSRFToken == null)
 			{
 				String err = "HttpServletRequest is missing CSRFToken Parameter." +
-							"userSeed=" + Encoder.stripNewlines(userSeed);
+							"userSeed=" + StringUtil.stripNewlines(userSeed);
 				LOG.warning(err);
 				return false;
 			}
@@ -97,8 +97,8 @@ public class HMACCSRFProtection implements CSRFProtection {
 			if( csrfTokenContents.length != 2 ) 
 			{
 				LOG.warning("CSRF Token contains invalid amount of delimiters. "+
-						"userSeed=" + Encoder.stripNewlines(userSeed) + 
-						", submittedToken= " + Encoder.stripNewlines(submittedCSRFToken));
+						"userSeed=" + StringUtil.stripNewlines(userSeed) +
+						", submittedToken= " + StringUtil.stripNewlines(submittedCSRFToken));
 				return false;
 			}
 			
@@ -112,16 +112,16 @@ public class HMACCSRFProtection implements CSRFProtection {
 			if( !csrfSigner.verify(userSeed + ":" + submittedTimestamp, submittedHmac) )
 			{
 				LOG.warning("Submitted CSRF Token did not contain a valid HMAC signature. "+
-						"userSeed=" + Encoder.stripNewlines(userSeed) + 
-						", submittedToken=" + Encoder.stripNewlines(submittedCSRFToken));
+						"userSeed=" + StringUtil.stripNewlines(userSeed) +
+						", submittedToken=" + StringUtil.stripNewlines(submittedCSRFToken));
 				return false;
 			}
 			
 			if( timestampIsExpired( Long.valueOf(submittedTimestamp), configuredTimeout) )
 			{
 				LOG.warning("Submitted CSRF Token is expired. "+
-						"userSeed=" + Encoder.stripNewlines(userSeed) + 
-						", submittedToken= " + Encoder.stripNewlines(submittedCSRFToken));
+						"userSeed=" + StringUtil.stripNewlines(userSeed) +
+						", submittedToken= " + StringUtil.stripNewlines(submittedCSRFToken));
 				return false;
 			}
 			
@@ -134,8 +134,8 @@ public class HMACCSRFProtection implements CSRFProtection {
 					
 			// Logging a warning here since this exception is caught and handled by the filter. This should
 			// should be considered a security warning. 
-			LOG.warning(err+ ", userSeed=" + Encoder.stripNewlines(userSeed) + 
-					", submittedToken=" + Encoder.stripNewlines(submittedCSRFToken) + 
+			LOG.warning(err+ ", userSeed=" + StringUtil.stripNewlines(userSeed) +
+					", submittedToken=" + StringUtil.stripNewlines(submittedCSRFToken) +
 					", exception=" + ex.getMessage() );
 			throw new CSRFTokenVerificationException(err);
 		}

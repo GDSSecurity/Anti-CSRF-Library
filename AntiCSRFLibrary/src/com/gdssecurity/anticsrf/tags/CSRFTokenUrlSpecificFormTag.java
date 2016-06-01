@@ -10,7 +10,8 @@ import com.gdssecurity.anticsrf.protections.CSRFProtection;
 import com.gdssecurity.anticsrf.protections.CSRFProtectionFactory;
 import com.gdssecurity.anticsrf.utils.ConfigUtil;
 import com.gdssecurity.anticsrf.utils.Constants;
-import com.gdssecurity.anticsrf.utils.Encoder;
+
+import org.owasp.encoder.*;
 
 public class CSRFTokenUrlSpecificFormTag extends BodyTagSupport
 {
@@ -41,8 +42,8 @@ public class CSRFTokenUrlSpecificFormTag extends BodyTagSupport
 			String tokenParamName = ConfigUtil.getProp(Constants.CONF_TOKEN_PARAM);
 			
 			pageContext.getOut().print("<input type='hidden' name='"+ 
-					Encoder.HtmlAttributeEncode(tokenParamName) +
-					"' value='" + Encoder.HtmlAttributeEncode(csrfToken) + "'></input>");
+					Encode.forHtmlAttribute(tokenParamName) +
+					"' value='" + Encode.forHtmlAttribute(csrfToken) + "'></input>");
 		}
 		catch (Exception e)
 		{

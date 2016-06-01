@@ -11,7 +11,7 @@ import com.gdssecurity.anticsrf.exceptions.CSRFTokenVerificationException;
 import com.gdssecurity.anticsrf.utils.Base64;
 import com.gdssecurity.anticsrf.utils.ConfigUtil;
 import com.gdssecurity.anticsrf.utils.Constants;
-import com.gdssecurity.anticsrf.utils.Encoder;
+import com.gdssecurity.anticsrf.utils.StringUtil;
 import com.gdssecurity.anticsrf.utils.SecureCompare;
 
 public class SessionProtection implements CSRFProtection {
@@ -72,7 +72,7 @@ public class SessionProtection implements CSRFProtection {
 		if(!urlSpecificTokens.containsKey(url))
 		{
 			String encodedCSRFToken = generateRandomToken();
-			LOG.fine("Setting a new url specific token. url=" + Encoder.stripNewlines(url)
+			LOG.fine("Setting a new url specific token. url=" + StringUtil.stripNewlines(url)
 					+", newToken=" + encodedCSRFToken);
 			urlSpecificTokens.put(url, encodedCSRFToken);
 		}
@@ -124,7 +124,7 @@ public class SessionProtection implements CSRFProtection {
 			try
 			{
 				storedCSRFToken = urlSpecificTokens.get(url);
-				LOG.fine("Reading URL Specific Token prior to verification: tokenread="+Encoder.stripNewlines(storedCSRFToken));
+				LOG.fine("Reading URL Specific Token prior to verification: tokenread="+StringUtil.stripNewlines(storedCSRFToken));
 				if(storedCSRFToken == null)
 				{
 					return false;
@@ -132,7 +132,7 @@ public class SessionProtection implements CSRFProtection {
 			}
 			catch(NullPointerException ex)
 			{
-				String err = "No URL Specific Token found. URL="+Encoder.stripNewlines(url);
+				String err = "No URL Specific Token found. URL="+StringUtil.stripNewlines(url);
 				LOG.warning(err);
 				return false;
 			}
@@ -144,7 +144,7 @@ public class SessionProtection implements CSRFProtection {
 	
 	private boolean handleCSRFTokenVerification(String tokenFromUser, String storedCSRFToken) throws CSRFTokenVerificationException
 	{	
-		LOG.fine("About to compare: submittedToken="+Encoder.stripNewlines(tokenFromUser) + 
+		LOG.fine("About to compare: submittedToken="+StringUtil.stripNewlines(tokenFromUser) +
 				", storedToken="+storedCSRFToken);
 		
 		if( tokenFromUser != null && storedCSRFToken != null )
@@ -156,7 +156,7 @@ public class SessionProtection implements CSRFProtection {
 			}
 			
 			LOG.warning("Failed to validate user's csrfToken: submittedToken=" + 
-					Encoder.stripNewlines(tokenFromUser) + ", expectedToken="+storedCSRFToken);
+					StringUtil.stripNewlines(tokenFromUser) + ", expectedToken="+storedCSRFToken);
 		}
 		
 		return false;
