@@ -10,7 +10,8 @@ import com.gdssecurity.anticsrf.protections.CSRFProtection;
 import com.gdssecurity.anticsrf.protections.CSRFProtectionFactory;
 import com.gdssecurity.anticsrf.utils.ConfigUtil;
 import com.gdssecurity.anticsrf.utils.Constants;
-import com.gdssecurity.anticsrf.utils.Encoder;
+
+import org.owasp.encoder.*;
 
 public class CSRFTokenUrlTag  extends BodyTagSupport
 {
@@ -28,8 +29,8 @@ public class CSRFTokenUrlTag  extends BodyTagSupport
 			String csrfToken = csrfProtection.getCSRFToken();
 			String tokenParamName = ConfigUtil.getProp(Constants.CONF_TOKEN_PARAM);
 
-			pageContext.getOut().print(Encoder.UrlEncode(tokenParamName) + 
-					"=" + Encoder.UrlEncode(csrfToken));
+			pageContext.getOut().print(Encode.forUriComponent(tokenParamName) +
+					"=" + Encode.forUriComponent(csrfToken));
 		}
 		catch (Exception e)
 		{

@@ -14,7 +14,6 @@ import com.gdssecurity.anticsrf.exceptions.CSRFTokenVerificationException;
 import com.gdssecurity.anticsrf.protections.HMACCSRFProtection;
 import com.gdssecurity.anticsrf.utils.ConfigUtil;
 import com.gdssecurity.anticsrf.utils.Constants;
-import com.gdssecurity.anticsrf.utils.Encoder;
 import com.gdssecurity.anticsrf.utils.KeyczarWrapper;
 
 public class J2EEHmacCSRFProtection implements J2EECSRFProtection

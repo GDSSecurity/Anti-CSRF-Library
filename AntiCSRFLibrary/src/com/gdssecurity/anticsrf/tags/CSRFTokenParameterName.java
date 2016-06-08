@@ -6,7 +6,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 
 import com.gdssecurity.anticsrf.utils.ConfigUtil;
 import com.gdssecurity.anticsrf.utils.Constants;
-import com.gdssecurity.anticsrf.utils.Encoder;
+
+import org.owasp.encoder.*;
 
 public class CSRFTokenParameterName extends BodyTagSupport {
 
@@ -18,7 +19,7 @@ public class CSRFTokenParameterName extends BodyTagSupport {
 		try
 		{
 			String tokenParamName = ConfigUtil.getProp(Constants.CONF_TOKEN_PARAM);
-			pageContext.getOut().print(Encoder.HtmlAttributeEncode(tokenParamName));
+			pageContext.getOut().print(Encode.forHtmlAttribute(tokenParamName));
 		}
 		catch (Exception e)
 		{

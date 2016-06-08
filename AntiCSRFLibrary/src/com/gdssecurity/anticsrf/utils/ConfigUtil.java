@@ -25,6 +25,7 @@ import org.xml.sax.SAXException;
 
 import com.gdssecurity.anticsrf.exceptions.CSRFConfigException;
 import com.gdssecurity.anticsrf.exceptions.CSRFSignerException;
+import com.gdssecurity.anticsrf.utils.StringUtil;
 
 public class ConfigUtil 
 {
@@ -513,7 +514,7 @@ public class ConfigUtil
 	
 	public static boolean hasOneTimeUseConfig(String url)
 	{
-		LOG.fine("About to check if token is configured for OneTimeUser: RequestURI="+Encoder.stripNewlines(url));
+		LOG.fine("About to check if token is configured for OneTimeUser: RequestURI="+StringUtil.stripNewlines(url));
 		return oneTimeUseConfig.containsKey(url);
 	}
 	

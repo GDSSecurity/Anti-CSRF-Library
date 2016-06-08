@@ -22,7 +22,7 @@ import com.gdssecurity.anticsrf.protections.CSRFProtection;
 import com.gdssecurity.anticsrf.protections.CSRFProtectionFactory;
 import com.gdssecurity.anticsrf.utils.ConfigUtil;
 import com.gdssecurity.anticsrf.utils.Constants;
-import com.gdssecurity.anticsrf.utils.Encoder;
+import com.gdssecurity.anticsrf.utils.StringUtil;
 
 public class CSRFFilter implements Filter 
 {
@@ -63,7 +63,7 @@ public class CSRFFilter implements Filter
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
 		
-		LOG.fine("The CSRFFilter is running on URL: " + Encoder.stripNewlines(req.getRequestURI()) );
+		LOG.fine("The CSRFFilter is running on URL: " + StringUtil.stripNewlines(req.getRequestURI()) );
 		
 		// If Hmac mode, lets add a new token to the request attribute first
 		// This will allow for a rolling timestamp on the CSRFToken
@@ -101,7 +101,7 @@ public class CSRFFilter implements Filter
 			if( !csrfProtection.verifyCSRFToken() )
 			{
 				String err = "User submitted an invalid CSRFToken.";
-				LOG.warning(err+", submittedToken=" + Encoder.stripNewlines(req.getParameter(
+				LOG.warning(err+", submittedToken=" + StringUtil.stripNewlines(req.getParameter(
 								ConfigUtil.getProp(Constants.CONF_TOKEN_PARAM))) );
 				throw new CSRFTokenVerificationException(err);
 			}

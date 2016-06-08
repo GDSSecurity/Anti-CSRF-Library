@@ -8,7 +8,8 @@ import javax.servlet.jsp.tagext.BodyTagSupport;
 import com.gdssecurity.anticsrf.j2ee.J2EECSRFProtection;
 import com.gdssecurity.anticsrf.protections.CSRFProtection;
 import com.gdssecurity.anticsrf.protections.CSRFProtectionFactory;
-import com.gdssecurity.anticsrf.utils.Encoder;
+
+import org.owasp.encoder.*;
 
 public class CSRFToken extends BodyTagSupport {
 
@@ -25,7 +26,7 @@ public class CSRFToken extends BodyTagSupport {
 			csrfProtection.setRequestObject(req);
 			String csrfToken = csrfProtection.getCSRFToken();
 			
-			pageContext.getOut().print(Encoder.HtmlAttributeEncode(csrfToken));
+			pageContext.getOut().print(Encode.forHtmlAttribute(csrfToken));
 		}
 		catch (Exception e)
 		{
